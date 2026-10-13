@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+build/
+bin/
+obj/
+target/
+*.o
+*.out
+.DS_Store
+.vscode/
