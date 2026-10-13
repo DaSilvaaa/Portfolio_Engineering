@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  python-tests:
+    name: Python Security Tools
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pytest fastapi httpx
+      - name: Test Password Auditor
+        run: python -m pytest projects/password-auditor/tests/
+      - name: Test Port Scanner
+        run: python -m pytest projects/port-scanner/tests/
+      - name: Test Secure Web API
+        run: python -m pytest projects/secure-web-api/tests/
+      - name: Test Log Analyzer SIEM
+        run: python -m pytest projects/log-analyzer-siem/tests/
+
+  rust-tests:
+    name: Rust File Integrity Monitor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Run Cargo Tests
+        run: cargo test --manifest-path projects/rust-integrity-monitor/Cargo.toml
+
+  csharp-tests:
+    name: C# Auth Log Analyzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Run xUnit Tests
+        run: dotnet test projects/csharp-auth-log-analyzer/tests
+
+  cpp-build:
+    name: C++ Packet Parser
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with CMake
+        run: |
+          cmake -S projects/cpp-packet-parser -B build
+          cmake --build build
+
+  java-tests:
+    name: Java AES Vault
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Run JUnit Tests
+        run: mvn -q -f projects/java-aes-vault/pom.xml test
+        
