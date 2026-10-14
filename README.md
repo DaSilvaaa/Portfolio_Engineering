@@ -1,49 +1,56 @@
-# Software Engineering & Cybersecurity Portfolio
+# Software Engineering & Defensive Security Portfolio
 
-[![CI](https://github.com/DaSilvaaa/Portfolio_Engineering/actions/workflows/ci.yml/badge.svg)](https://github.com/DaSilvaaa/Portfolio_Engineering/actions/workflows/ci.yml)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+Quinze projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demonstrando arquitetura de software, programação concorrente, segurança defensiva e Machine Learning. Cada projeto contém a sua própria suite de testes, documentação técnica independente e integração contínua no GitHub Actions.
 
-Monorepo focado no desenvolvimento de ferramentas defensivas de cibersegurança, criptografia aplicada, análise de tráfego de rede e arquiteturas de software seguras.
-
----
-
-## 🛠️ Matriz de Projetos
-
-| Projeto | Linguagem / Stack | Domínio de Segurança | Testes Automatizados |
-|---|---|---|:---:|
-| [secure-web-api](projects/secure-web-api) | Python / FastAPI, Pydantic | AppSec, OWASP Hardening, Rate Limiting, JWT | `pytest` |
-| [port-scanner](projects/port-scanner) | Python / `asyncio`, Sockets | Network Recon, Concorrência TCP, Banner Grabbing | `pytest` |
-| [log-analyzer-siem](projects/log-analyzer-siem) | Python / Regex, Dataclasses | Threat Detection, SQLi, Path Traversal, Brute Force | `pytest` |
-| [password-auditor](projects/password-auditor) | Python / Math, CLI | Entropia de Shannon, Avaliação de Força Bruta | `pytest` |
-| [rust-integrity-monitor](projects/rust-integrity-monitor) | Rust / SHA-256, BTreeMap | File Integrity Monitoring (FIM), Baseline & Diff | `cargo test` |
-| [csharp-auth-log-analyzer](projects/csharp-auth-log-analyzer) | C# (.NET 8) / LINQ, Regex | Análise Forense de Logs SSH, Sliding Window | `xUnit` |
-| [cpp-packet-parser](projects/cpp-packet-parser) | C++17 / CMake, POSIX | Dissecação Binária PCAP, Deteção de SYN Scans | Compilação CMake |
-| [java-aes-vault](projects/java-aes-vault) | Java 17 / JCA, Maven | Cifra Autenticada AES-256-GCM, PBKDF2, AAD | `JUnit 5` |
+**Autor:** Diogo Silva · Engenharia de Computadores e Informática / Engenharia Computacional, Universidade de Aveiro
 
 ---
 
-## Machine Learning & MLOps
+## Estrutura do Portfólio
 
-| Projeto | O que demonstra |
-|---|---|
-| [ml-intrusion-detection](projects/ml-intrusion-detection) | Classificação supervisionada (Random Forest) e não-supervisionada (Isolation Forest), avaliação por família de ataque, FPR e validação cruzada |
-| [ml-tabular-pipeline](projects/ml-tabular-pipeline) | Pipeline scikit-learn sem fuga de dados (*leak-free*), seleção por CV, permutation importance, Model Card e inferência via FastAPI |
-| [ml-from-scratch](projects/ml-from-scratch) | Implementação matemática pura em NumPy (Linear/Ridge, Regressão Logística, K-Means e PCA), verificada numericamente contra o scikit-learn |
+### 1. Segurança Defensiva e Ferramentas de Auditoria
+| Projeto | Tecnologia | Foco Principal |
+|---|---|---|
+| [secure-web-api](projects/secure-web-api) | Python / FastAPI | Autenticação robusta (scrypt, mitigação de enumeração, rate limiting, JWT endurecido) e modelo STRIDE |
+| [sast-mini](projects/sast-mini) | Python (AST) | Analisador estático com 8 regras de segurança (injeção, deserialização insegura, segredos) |
+| [port-scanner](projects/port-scanner) | Python (Asyncio) | Varrimento concorrente não-bloqueante de portas TCP e deteção de banners |
+| [password-auditor](projects/password-auditor) | Python | Avaliação de entropia de palavras-passe baseada em classes de carateres |
+| [rust-secrets-scanner](projects/rust-secrets-scanner) | Rust | Deteção de credenciais via expressões regulares e cálculo de entropia de Shannon |
+| [rust-integrity-monitor](projects/rust-integrity-monitor) | Rust | Monitorização de integridade de ficheiros (FIM) com baselines SHA-256 e deteção de adulterações |
+| [csharp-tls-inspector](projects/csharp-tls-inspector) | C# (.NET 8) | Auditoria remota de certificados X.509, cifras e versões de protocolo TLS |
+| [csharp-auth-log-analyzer](projects/csharp-auth-log-analyzer) | C# (.NET 8) | Deteção de ataques de força bruta SSH via janelas temporais deslizantes |
 
-Ensaio técnico de referência: [Armadilhas de Avaliação em Machine Learning](docs/writeups/ml-evaluation-pitfalls.md).
+### 2. Programação de Sistemas e Concorrência
+| Projeto | Tecnologia | Foco Principal |
+|---|---|---|
+| [cpp-thread-pool](projects/cpp-thread-pool) | C++17 | Thread pool genérico com `std::future` e cache LRU thread-safe (testado com ThreadSanitizer/ASan) |
+| [cpp-packet-parser](projects/cpp-packet-parser) | C++17 | Análise de tráfego de ficheiros PCAP com verificação estrita de limites de memória e deteção de SYN scans |
+| [java-aes-vault](projects/java-aes-vault) | Java 17 | Cifragem segura de ficheiros com AES-256-GCM, derivação PBKDF2 e cabeçalhos autenticados |
+| [java-rate-limiter](projects/java-rate-limiter) | Java 17 | Limitador de débito (Token Bucket) concorrente com relógio injetável e isolamento por chave |
 
-## 🚀 Integração Contínua (CI/CD)
-
-O repositório possui uma pipeline automatizada no **GitHub Actions** que valida a integridade de todas as suites de testes a cada alteração:
-- **Python:** Execução de testes unitários e de integração com `pytest`.
-- **Rust:** Verificação de integridade e suites unitárias com `cargo test`.
-- **C#:** Validação de regras de janela deslizante com `xUnit`.
-- **C++:** Compilação com flags rigorosas (`-Wall -Wextra -Wpedantic`).
-- **Java:** Testes criptográficos de cifra, autenticação e resistência a adulteração com `JUnit 5`.
+### 3. Machine Learning & MLOps
+| Projeto | Tecnologia | Foco Principal |
+|---|---|---|
+| [ml-intrusion-detection](projects/ml-intrusion-detection) | Python / Scikit-Learn | Deteção de intrusões em rede via Random Forest (supervisionado) e Isolation Forest (não-supervisionado) |
+| [ml-tabular-pipeline](projects/ml-tabular-pipeline) | Python / Scikit-Learn / FastAPI | Pipeline estanque sem fuga de dados (*leak-free*), seleção por CV, Model Card e API com Pydantic |
+| [ml-from-scratch](projects/ml-from-scratch) | Python / NumPy | Algoritmos implementados de raiz em álgebra linear (Linear, Logistic, K-Means, PCA) validados contra scikit-learn |
 
 ---
 
-## 📬 Contacto
-- **Autor:** Diogo Silva
-- **Email:** diogo.eduardo.taveira.silva@gmail.com
-- **GitHub:** [@DaSilvaaa](https://github.com/DaSilvaaa)
+## Boas Práticas de Engenharia Adotadas
+- **Testes Unitários:** Mais de 60 testes automatizados distribuídos por Pytest, Cargo Test, CTest, Maven Surefire e xUnit.
+- **Sanitizers de Memória e Corridas de Dados:** Validação de C++ com ThreadSanitizer (TSan) e AddressSanitizer (ASan).
+- **Segurança por Defeito:** Validação estrita de esquemas, cifras modernas autenticadas e códigos de saída compatíveis com CI.
+- **Documentação de Engenharia:**
+  - [Visão Geral de Arquitetura](docs/architecture/overview.md)
+  - [Registo de Decisão de Arquitetura (ADR 0001 — Monorepo)](docs/adr/0001-monorepo.md)
+  - [Modelação de Ameaças STRIDE da Web API](docs/threat-models/secure-web-api.md)
+  - [Ensaio Técnico: Armadilhas em JWT](docs/writeups/jwt-pitfalls.md)
+  - [Ensaio Técnico: Armadilhas de Avaliação em Machine Learning](docs/writeups/ml-evaluation-pitfalls.md)
+
+---
+
+## Execução Local dos Testes
+```bash
+# Executa a suite completa em ferramentas com compilador instalado localmente
+bash scripts/verify.sh
