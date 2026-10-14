@@ -1,0 +1,39 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\pagestyle{empty}
+\setlist[itemize]{leftmargin=1.2em,itemsep=1pt,topsep=2pt}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+
+\begin{document}
+{\LARGE\bfseries Diogo Silva}\\[2pt]
+Portugal \textbar{} \href{https://github.com/DiogoSilva-cpu/Portfolio_Engineering}{github.com/DiogoSilva-cpu/Portfolio\_Engineering}
+
+\section*{Perfil}
+Engenheiro Computacional com foco em segurança de software, machine learning aplicado e computação de sistemas, autor de um monorepo aberto com 16 projetos testados em Python, Rust, C++, Java e C\#.
+
+\section*{Formação Académica}
+\textbf{Mestrado em Sistemas Energéticos Sustentáveis} \hfill em curso\\
+\textbf{Licenciatura/Mestrado em Engenharia Computacional}, Universidade de Aveiro
+
+\section*{Projetos em Destaque}
+\textbf{Portfolio\_Engineering (Monorepo Poliglota)} \hfill \href{https://github.com/DiogoSilva-cpu/Portfolio_Engineering}{github.com/DiogoSilva-cpu/Portfolio\_Engineering}
+\begin{itemize}
+  \item Monorepo com 16 projetos autónomos e pipeline CI com 10 jobs paralelos no GitHub Actions, CodeQL, sanitizers de memória (TSan/ASan/UBSan), gitleaks, Trivy e Dependabot.
+  \item \textbf{Segurança & Autenticação:} API web endurecida (scrypt, anti-enumeração de utilizadores, rate limiting por IP/conta, JWT com algoritmo fixo e modelo de ameaças STRIDE).
+  \item \textbf{Ferramentas Forenses & Auditoria:} Scanner de segredos por entropia de Shannon (Rust), analisador estático AST com testes baseados em propriedades (Hypothesis), auditor TLS (C\#) e cofre AES-256-GCM com PBKDF2 (Java).
+  \item \textbf{Sistemas & Concorrência:} Thread pool genérico com \texttt{std::future} e cache LRU thread-safe validados contra race conditions, analisador de pacotes PCAP bounds-checked (C++17).
+  \item \textbf{Machine Learning & MLOps:} Previsão horária fotovoltaica sem fuga temporal (\textit{no look-ahead}), deteção de intrusões de rede com Random Forest e Isolation Forest, pipeline tabular estanque com inferência em FastAPI e implementações numéricas de raiz em NumPy.
+\end{itemize}
+
+\section*{Competências Técnicas}
+\textbf{Linguagens:} Python, Rust, C++, Java, C\#, SQL, Bash\\
+\textbf{Segurança & DevSecOps:} Modelação STRIDE, SAST, auditoria de dependências (pip-audit, cargo-audit), Docker\\
+\textbf{Machine Learning:} scikit-learn, NumPy, pandas, séries temporais, validação cruzada estanque, FastAPI\\
+\textbf{Ferramentas:} Git, GitHub Actions, Docker, CMake, Maven, .NET SDK, pytest, Hypothesis
+\end{document}

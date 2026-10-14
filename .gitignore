@@ -13,3 +13,11 @@ target/
 .venv-ml/
 *.joblib
 .pytest_cache/
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+cv.pdf

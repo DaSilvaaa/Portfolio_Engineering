@@ -2,8 +2,8 @@
 
 Quinze projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demonstrando arquitetura de software, programação concorrente, segurança defensiva e Machine Learning. Cada projeto contém a sua própria suite de testes, documentação técnica independente e integração contínua no GitHub Actions.
 
-**Autor:** Diogo Silva · Engenharia de Computadores e Informática / Engenharia Computacional, Universidade de Aveiro
-
+**Autor:** Diogo Silva · Engenharia Computacional & Mestrado em Sistemas Energéticos Sustentáveis, Universidade de Aveiro  
+📄 **Curriculum Vitae:** [Descarregar CV (PDF)](../../actions) *(gerado automaticamente a partir do código-fonte em [`cv/cv.tex`](cv/cv.tex))*
 ---
 
 ## Estrutura do Portfólio
