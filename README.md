@@ -34,6 +34,7 @@ Quinze projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demon
 | [ml-intrusion-detection](projects/ml-intrusion-detection) | Python / Scikit-Learn | Deteção de intrusões em rede via Random Forest (supervisionado) e Isolation Forest (não-supervisionado) |
 | [ml-tabular-pipeline](projects/ml-tabular-pipeline) | Python / Scikit-Learn / FastAPI | Pipeline estanque sem fuga de dados (*leak-free*), seleção por CV, Model Card e API com Pydantic |
 | [ml-from-scratch](projects/ml-from-scratch) | Python / NumPy | Algoritmos implementados de raiz em álgebra linear (Linear, Logistic, K-Means, PCA) validados contra scikit-learn |
+| [`ml-energy-forecasting`](projects/ml-energy-forecasting) | Python / Scikit-Learn | Previsão horária fotovoltaica day-ahead: atributos sem look-ahead, divisão temporal cronológica, baselines ingénuas e pontuação de perícia (skill score). |
 
 ---
 

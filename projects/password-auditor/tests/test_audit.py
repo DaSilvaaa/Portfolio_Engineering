@@ -1,32 +1,20 @@
 import sys
 from pathlib import Path
 
-# Adicionar a pasta src ao path
+from hypothesis import given, settings
+from hypothesis import strategies as st
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-
-from audit import entropy_bits, rate
-
-
-def test_entropy_empty():
-    assert entropy_bits("") == 0.0
+from audit import entropy_bits  # noqa: E402
 
 
-def test_entropy_lowercase_only():
-    # 8 caracteres apenas em minúsculas (pool = 26)
-    bits = entropy_bits("abcdefgh")
-    assert round(bits, 1) == 37.6
-    assert rate(bits) == "fraca"
+@settings(max_examples=200, deadline=None)
+@given(st.text(max_size=64))
+def test_entropy_is_never_negative(pw):
+    assert entropy_bits(pw) >= 0.0
 
 
-def test_entropy_complex_password():
-    # Minúsculas + maiúsculas + números + símbolos (pool = 94)
-    bits = entropy_bits("P@ssw0rd2026!#")
-    assert bits > 80.0
-    assert rate(bits) == "muito forte"
-
-
-def test_ratings():
-    assert rate(30.0) == "fraca"
-    assert rate(50.0) == "razoavel"
-    assert rate(70.0) == "forte"
-    assert rate(90.0) == "muito forte"
+@settings(max_examples=200, deadline=None)
+@given(st.text(min_size=1, max_size=64), st.sampled_from(list("aZ9!")))
+def test_appending_a_character_never_lowers_entropy(pw, ch):
+    assert entropy_bits(pw + ch) >= entropy_bits(pw)

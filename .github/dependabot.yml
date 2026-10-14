@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/projects/secure-web-api"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/projects/rust-integrity-monitor"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/projects/rust-secrets-scanner"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/projects/java-aes-vault"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/projects/java-rate-limiter"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "nuget"
+    directory: "/projects/csharp-auth-log-analyzer"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "nuget"
+    directory: "/projects/csharp-tls-inspector"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/projects/secure-web-api"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

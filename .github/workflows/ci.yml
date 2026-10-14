@@ -38,6 +38,7 @@ jobs:
           python -m pytest projects/ml-intrusion-detection/tests/
           python -m pytest projects/ml-from-scratch/tests/
           python -m pytest projects/ml-tabular-pipeline/tests/
+          python -m pytest projects/ml-energy-forecasting/tests/
 
   rust-file-integrity-monitor:
     runs-on: ubuntu-latest
@@ -117,3 +118,10 @@ jobs:
           java-version: "17"
       - name: Run Java Rate Limiter Tests
         run: mvn test --file projects/java-rate-limiter/pom.xml
+        
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Secure Web API Docker Image
+        run: docker build -t secure-web-api projects/secure-web-api
