@@ -5,11 +5,24 @@ fail=0; ran=0
 
 run() {
   local name=$1; shift
-  if command -v "$1" >/dev/null 2>&1; then
+  local cmd=$1
+
+  # No caso do .NET, valida se o SDK está mesmo instalado e não apenas o runtime
+  if [ "$cmd" = "dotnet" ]; then
+    if command -v dotnet >/dev/null 2>&1 && dotnet --list-sdks 2>/dev/null | grep -q '[0-9]'; then
+      ran=$((ran+1)); echo "==> $name"
+      "$@" || { echo "FALHOU: $name"; fail=1; }
+    else
+      echo "-- ignorado (.NET SDK não instalado localmente): $name"
+    fi
+    return
+  fi
+
+  if command -v "$cmd" >/dev/null 2>&1; then
     ran=$((ran+1)); echo "==> $name"
     "$@" || { echo "FALHOU: $name"; fail=1; }
   else
-    echo "-- ignorado ($1 não instalado localmente): $name"
+    echo "-- ignorado ($cmd não instalado localmente): $name"
   fi
 }
 
