@@ -22,6 +22,16 @@ Monorepo focado no desenvolvimento de ferramentas defensivas de cibersegurança,
 
 ---
 
+## Machine Learning & MLOps
+
+| Projeto | O que demonstra |
+|---|---|
+| [ml-intrusion-detection](projects/ml-intrusion-detection) | Classificação supervisionada (Random Forest) e não-supervisionada (Isolation Forest), avaliação por família de ataque, FPR e validação cruzada |
+| [ml-tabular-pipeline](projects/ml-tabular-pipeline) | Pipeline scikit-learn sem fuga de dados (*leak-free*), seleção por CV, permutation importance, Model Card e inferência via FastAPI |
+| [ml-from-scratch](projects/ml-from-scratch) | Implementação matemática pura em NumPy (Linear/Ridge, Regressão Logística, K-Means e PCA), verificada numericamente contra o scikit-learn |
+
+Ensaio técnico de referência: [Armadilhas de Avaliação em Machine Learning](docs/writeups/ml-evaluation-pitfalls.md).
+
 ## 🚀 Integração Contínua (CI/CD)
 
 O repositório possui uma pipeline automatizada no **GitHub Actions** que valida a integridade de todas as suites de testes a cada alteração:

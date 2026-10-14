@@ -1,0 +1,38 @@
+{
+  "n_samples": 6000,
+  "seed": 42,
+  "supervised_random_forest": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "false_positive_rate": 0.0,
+    "confusion_matrix": [
+      [
+        1200,
+        0
+      ],
+      [
+        0,
+        300
+      ]
+    ],
+    "recall_by_attack_type": {
+      "portscan": 1.0,
+      "dos": 1.0,
+      "bruteforce": 1.0
+    },
+    "cv_f1_mean": 0.9983410110038108,
+    "cv_f1_std": 0.002210711954249875
+  },
+  "unsupervised_isolation_forest": {
+    "roc_auc": 0.9946416666666666
+  },
+  "top_features": {
+    "log_packets": 0.3377525274351908,
+    "packets": 0.28194409254796743,
+    "bytes_per_packet": 0.12515994637420516,
+    "syn_ratio": 0.08209453380086175,
+    "failed_logins": 0.0764433065802833
+  }
+}

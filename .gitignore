@@ -10,3 +10,6 @@ target/
 *.out
 .DS_Store
 .vscode/
+.venv-ml/
+*.joblib
+.pytest_cache/
