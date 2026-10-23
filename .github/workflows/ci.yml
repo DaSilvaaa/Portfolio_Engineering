@@ -7,6 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff
+      - run: ruff check .
+
   python-security-tools:
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +27,8 @@ jobs:
           cache: "pip"
       - run: pip install -r requirements-dev.txt
       - name: Run Python Security Tests
+        env:
+          SECRET_KEY: ci-only-secret-key-with-more-than-32-characters
         run: |
           python -m pytest projects/password-auditor/tests/
           python -m pytest projects/port-scanner/tests/
@@ -88,12 +100,15 @@ jobs:
 
   cpp-thread-pool:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sanitize: ["", "address", "thread"]
     steps:
       - uses: actions/checkout@v4
-      - name: Build and Test C++ Thread Pool
+      - name: Build and Test C++ Thread Pool (sanitizer=${{ matrix.sanitize || 'none' }})
         run: |
           cd projects/cpp-thread-pool
-          cmake -B build
+          cmake -B build -DSANITIZE=${{ matrix.sanitize }}
           cmake --build build
           ctest --test-dir build --output-on-failure
 

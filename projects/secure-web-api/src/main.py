@@ -4,18 +4,23 @@ from fastapi import FastAPI, HTTPException, Request, Response, status
 from pydantic import BaseModel, Field
 
 from security import (
+    DUMMY_HASH,
     create_access_token,
+    get_secret_key,
     hash_password,
     verify_access_token,
     verify_password,
 )
 
-app = FastAPI(title="Secure Web API", version="1.0.0")
+get_secret_key()  # falha no arranque se SECRET_KEY não estiver definida
+
+app = FastAPI(title="Secure Web API", version="1.1.0")
 
 # Base de dados em memória para demonstração
 USERS_DB: dict[str, str] = {}
 RATE_LIMIT_DB: dict[str, list[float]] = defaultdict(list)
 MAX_REQUESTS_PER_MINUTE = 20
+MAX_TRACKED_IPS = 10_000  # limita a memória usada pelo rate limiter
 
 
 class UserAuth(BaseModel):
@@ -28,6 +33,13 @@ async def security_middleware(request: Request, call_next):
     """Aplica rate limiting e injeta Security Headers (OWASP)."""
     ip = request.client.host if request.client else "unknown"
     now = time.time()
+
+    # Limpar IPs inativos para a memória não crescer sem limite
+    if len(RATE_LIMIT_DB) > MAX_TRACKED_IPS:
+        for key in [k for k, v in RATE_LIMIT_DB.items() if not v or now - v[-1] >= 60]:
+            del RATE_LIMIT_DB[key]
+        if len(RATE_LIMIT_DB) > MAX_TRACKED_IPS:
+            return Response(content="Serviço sobrecarregado.", status_code=503)
 
     # Limpar tentativas com mais de 60 segundos
     RATE_LIMIT_DB[ip] = [t for t in RATE_LIMIT_DB[ip] if now - t < 60]
@@ -44,18 +56,20 @@ async def security_middleware(request: Request, call_next):
     return response
 
 
-@app.post("/register", status_code=status.HTTP_201_CREATED)
+@app.post("/register", status_code=status.HTTP_202_ACCEPTED)
 def register(user: UserAuth):
-    if user.username in USERS_DB:
-        raise HTTPException(status_code=400, detail="Utilizador já registado.")
-    USERS_DB[user.username] = hash_password(user.password)
-    return {"message": "Utilizador registado com sucesso."}
+    # Resposta idêntica quer o utilizador exista ou não (sem enumeração).
+    if user.username not in USERS_DB:
+        USERS_DB[user.username] = hash_password(user.password)
+    return {"message": "Pedido de registo recebido."}
 
 
 @app.post("/token")
 def login(user: UserAuth):
     stored_hash = USERS_DB.get(user.username)
-    if not stored_hash or not verify_password(stored_hash, user.password):
+    # Corre sempre o Argon2, mesmo sem utilizador, para igualar o tempo de resposta.
+    password_ok = verify_password(stored_hash or DUMMY_HASH, user.password)
+    if not stored_hash or not password_ok:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Credenciais inválidas.",

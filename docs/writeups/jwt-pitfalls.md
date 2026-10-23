@@ -10,17 +10,17 @@ O cabeçalho de um JWT permite tecnicamente ao remetente declarar qual o algorit
 ## 2. Ausência ou Não-Validação da Expiração (`exp`)
 
 Um token sem o *claim* `exp` é válido indefinidamente, transformando um roubo de sessão num acesso perpétuo.
-**Mitigação:** Exigir obrigatoriamente a presença dos claims `exp` e `sub` (`options={"require": ["exp", "sub"]}`), fixar uma janela curta de validade (TTL de 15 minutos) e incluir um identificador único aleatório (`jti`). *(Validado no teste: `test_expired_token_rejected`)*.
+**Mitigação:** Exigir obrigatoriamente a presença dos claims `exp` e `sub` (`options={"require": ["exp", "sub"]}`), fixar uma janela curta de validade (TTL de 15 minutos) e incluir um identificador único aleatório (`jti`, gerado na emissão). *(Validado no teste: `test_expired_token_rejected`)*.
 
 ## 3. Enumeração de Utilizadores no Login
 
 Devolver códigos de erro distintos (ex.: "utilizador não encontrado" vs. "password incorreta") ou apresentar tempos de resposta assimétricos permite a agentes maliciosos mapear contas legítimas através de ataques de temporização (*timing attacks*).
-**Mitigação:** Executar sempre o cálculo de derivação criptográfica (usando um hash simulado `DUMMY_HASH` quando o utilizador não existe) e retornar rigorosamente a mesma resposta HTTP 401. *(Validado no teste: `test_wrong_password_and_unknown_user_look_identical`)*.
+**Mitigação:** Executar sempre o cálculo de derivação criptográfica (usando um hash simulado `DUMMY_HASH` quando o utilizador não existe) e retornar rigorosamente a mesma resposta HTTP 401. *(Validado no teste: `test_login_unknown_user_costs_similar_time`)*.
 
 ## 4. Força Bruta Ilimitada
 
 Ataques online automatizados contornam hashes fortes se não houver controlo de ritmo.
-**Mitigação:** Implementação de limitação de débitos (*Token Bucket*) por tuplo `ip:username` (5 tentativas por minuto), respondendo com código HTTP 429 e cabeçalho `Retry-After`. *(Validado no teste: `test_rate_limit_blocks_bruteforce`)*.
+**Mitigação:** Limitação de pedidos por IP (20 por minuto) com memória limitada, respondendo com HTTP 429. *(Validado no teste: `test_rate_limit_returns_429`)*. Melhoria futura: limite por `ip:username` e cabeçalho `Retry-After`.
 
 ## Risco Residual e Próximos Passos
 

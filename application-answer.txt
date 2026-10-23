@@ -1,5 +1,0 @@
-Machine learning (monorepo Portfolio_Engineering):
-- ml-intrusion-detection: supervised Random Forest and unsupervised Isolation Forest for network-flow intrusion detection, reporting per-attack recall, false-positive rate and stratified CV (synthetic data, limitations documented).
-- ml-tabular-pipeline: leak-free scikit-learn pipeline with CV model selection, held-out evaluation against a baseline, permutation importance, generated model card and a validated FastAPI inference service.
-- ml-from-scratch: NumPy linear/logistic regression, k-means and PCA, each verified against scikit-learn in tests.
-- Technical write-up: docs/writeups/ml-evaluation-pitfalls.md

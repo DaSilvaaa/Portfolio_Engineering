@@ -75,7 +75,6 @@ def scan_source(source: str, filename: str = "<string>") -> list[Finding]:
     try:
         tree = ast.parse(source, filename)
     except (SyntaxError, ValueError) as e:
-        lineno = getattr(e, "lineno", 0) or 0        
         return [Finding("PARSE", "low", filename, e.lineno or 0, "erro de sintaxe")]
     v = _Visitor(filename)
     v.visit(tree)
