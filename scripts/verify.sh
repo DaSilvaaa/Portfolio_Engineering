@@ -27,7 +27,7 @@ run() {
 }
 
 export SECRET_KEY="${SECRET_KEY:-local-dev-secret-key-with-32-or-more-chars}"
-run "python-security" python -m pytest projects/secure-web-api/tests projects/sast-mini/tests projects/password-auditor/tests projects/port-scanner/tests projects/log-analyzer-siem/tests -q
+run "python-security" python -m pytest projects/secure-web-api/tests projects/sast-mini/tests projects/site-auditor/tests projects/password-auditor/tests projects/port-scanner/tests projects/log-analyzer-siem/tests -q
 run "python-ml" python -m pytest projects/ml-intrusion-detection/tests projects/ml-from-scratch/tests projects/ml-tabular-pipeline/tests projects/ml-energy-forecasting/tests -q
 run "rust-integrity" cargo test -q --manifest-path projects/rust-integrity-monitor/Cargo.toml
 run "rust-secrets" cargo test -q --manifest-path projects/rust-secrets-scanner/Cargo.toml

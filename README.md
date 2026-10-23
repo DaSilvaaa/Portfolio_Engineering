@@ -1,6 +1,6 @@
 # Software Engineering & Defensive Security Portfolio
 
-Dezassete projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demonstrando arquitetura de software, programação concorrente, segurança defensiva e Machine Learning. Cada projeto contém a sua própria suite de testes, documentação técnica independente e integração contínua no GitHub Actions.
+Dezoito projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demonstrando arquitetura de software, programação concorrente, segurança defensiva e Machine Learning. Cada projeto contém a sua própria suite de testes, documentação técnica independente e integração contínua no GitHub Actions.
 
 **Autor:** Diogo Silva · Engenharia Computacional & Mestrado em Sistemas Energéticos Sustentáveis, Universidade de Aveiro  
 📄 **Curriculum Vitae:** [Descarregar CV (PDF)](../../releases/latest/download/cv.pdf) *(gerado automaticamente a partir do código-fonte em [`cv/cv.tex`](cv/cv.tex))*
@@ -12,6 +12,7 @@ Dezassete projetos autónomos e testados em **Python, Rust, C++, Java e C#**, de
 | Projeto | Tecnologia | Foco Principal |
 |---|---|---|
 | [secure-web-api](projects/secure-web-api) | Python / FastAPI | Autenticação com Argon2id, JWT HS256 validado (anti `alg:none`), mitigação de enumeração, rate limiting e modelo STRIDE |
+| [site-auditor](projects/site-auditor) | Python / ReportLab | Auditoria de headers, cookies e TLS de um site com relatório PDF para o cliente |
 | [sast-mini](projects/sast-mini) | Python (AST) | Analisador estático com 8 regras de segurança (injeção, deserialização insegura, segredos) |
 | [port-scanner](projects/port-scanner) | Python (Asyncio) | Varrimento concorrente não-bloqueante de portas TCP e deteção de banners |
 | [log-analyzer-siem](projects/log-analyzer-siem) | Python | Deteção de SQL injection, path traversal e força bruta em logs web, com alertas por severidade |
