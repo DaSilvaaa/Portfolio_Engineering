@@ -6,7 +6,21 @@ Dezoito projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demo
 📄 **Curriculum Vitae:** [Descarregar CV (PDF)](../../releases/latest/download/cv.pdf) *(gerado automaticamente a partir do código-fonte em [`cv/cv.tex`](cv/cv.tex))*
 ---
 
-## Estrutura do Portfólio
+## Projetos em destaque
+
+Três projetos publicados em repositórios próprios, com testes e CI:
+
+| Projeto | O que mostra |
+|---|---|
+| [secure-auth-api](https://github.com/DaSilvaaa/secure-auth-api) | Backend de autenticação (Argon2id, JWT, 2FA, reset de password, Docker) |
+| [solar-forecast-dashboard](https://github.com/DaSilvaaa/solar-forecast-dashboard) | ML para previsão fotovoltaica com dados reais e dashboard |
+| [site-security-auditor](https://github.com/DaSilvaaa/site-security-auditor) | Auditoria de segurança web com relatório PDF |
+
+O resto deste repositório é o meu laboratório de engenharia: experiências em várias linguagens, cada uma com testes.
+
+---
+
+## Laboratório: estrutura dos projetos
 
 ### 1. Segurança Defensiva e Ferramentas de Auditoria
 | Projeto | Tecnologia | Foco Principal |
