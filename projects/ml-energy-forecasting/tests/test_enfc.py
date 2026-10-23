@@ -55,3 +55,36 @@ def test_split_is_chronological(result):
 
 def test_evaluation_is_reproducible(result):
     assert evaluate(days=400, seed=0)["metrics"] == result["metrics"]
+
+
+def test_pv_from_weather_physics():
+    import pandas as pd
+    from enfc.real_data import pv_from_weather
+
+    ghi = pd.Series([0.0, 500.0, 1000.0, 1000.0])
+    temp = pd.Series([10.0, 20.0, 20.0, 40.0])
+    pv = pv_from_weather(ghi, temp, kwp=5.0)
+    assert pv.iloc[0] == 0.0
+    assert pv.iloc[1] < pv.iloc[2] <= 5.0
+    assert pv.iloc[3] < pv.iloc[2]  # mais calor, menos produção
+
+
+def test_evaluate_with_injected_real_style_frame(monkeypatch):
+    import pandas as pd
+    from enfc.data import generate_pv_load
+    from enfc.model import evaluate
+
+    df = generate_pv_load(60, seed=1)
+    res = evaluate(df=df)
+    assert res["metrics"]["n_test"] > 0 and isinstance(res["test"], pd.DataFrame)
+
+
+def test_frame_from_hourly_parses_open_meteo_payload():
+    from enfc.real_data import frame_from_hourly
+
+    times = [f"2024-06-01T{h:02d}:00" for h in range(24)]
+    hourly = {"time": times, "shortwave_radiation": [0.0] * 6 + [600.0] * 12 + [0.0] * 6,
+              "temperature_2m": [18.0] * 24, "cloud_cover": [40.0] * 24}
+    df = frame_from_hourly(hourly, kwp=5.0)
+    assert list(df.columns) == ["pv_kw", "cloud_forecast", "temp_c"] and len(df) == 24
+    assert df["cloud_forecast"].iloc[0] == 0.4 and df["pv_kw"].max() > 0
