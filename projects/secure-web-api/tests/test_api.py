@@ -11,14 +11,14 @@ from fastapi.testclient import TestClient
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import security
-from main import RATE_LIMIT_DB, USERS_DB, app
+import db
+from main import RATE_LIMIT_DB, app
 
 client = TestClient(app)
-CREDS = {"username": "diogo", "password": "SafePassword123!"}
+CREDS = {"username": "diogo", "email": "diogo@example.com", "password": "SafePassword123!"}
 
 
 def setup_function():
-    USERS_DB.clear()
     RATE_LIMIT_DB.clear()
 
 
@@ -116,7 +116,9 @@ def test_login_unknown_user_costs_similar_time():
 
 def test_passwords_hashed_with_argon2id():
     client.post("/register", json=CREDS)
-    assert USERS_DB["diogo"].startswith("$argon2id$")
+    with db.connect() as conn:
+        stored = conn.execute("SELECT password_hash FROM users").fetchone()[0]
+    assert stored.startswith("$argon2id$")
 
 
 def test_missing_secret_key_fails(monkeypatch):
