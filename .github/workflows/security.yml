@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build -t secure-web-api:scan projects/secure-web-api
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: secure-web-api:scan
           severity: CRITICAL,HIGH
