@@ -31,4 +31,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload v1.2.0 cv.pdf --clobber || true
+          gh release view v1.2.0 >/dev/null 2>&1 || gh release create v1.2.0 --title "v1.2.0" --notes "Ver CHANGELOG.md"
+          gh release upload v1.2.0 cv.pdf --clobber

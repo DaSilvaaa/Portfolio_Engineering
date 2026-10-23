@@ -1,60 +1,59 @@
-import base64
-import hashlib
-import hmac
-import json
-import secrets
+"""Primitivas de segurança: hashing Argon2id e tokens JWT (HS256)."""
+import os
+import uuid
 import time
 from typing import Optional
 
-SECRET_KEY = "super-secret-key-change-in-production"
-TOKEN_EXPIRY_SECONDS = 3600  # 1 hora
+import jwt
+from argon2 import PasswordHasher
+from argon2.exceptions import InvalidHashError, VerificationError
+
+TOKEN_EXPIRY_SECONDS = 900  # 15 minutos
+JWT_ALGORITHM = "HS256"
+MIN_SECRET_LENGTH = 32
+
+_hasher = PasswordHasher()  # Argon2id com parâmetros por omissão recomendados
+# Hash de um valor descartável, usado para igualar o tempo de resposta no login
+# quando o utilizador não existe (evita enumeração por timing).
+DUMMY_HASH = _hasher.hash("dummy-password-for-timing-equalisation")
+
+
+def get_secret_key() -> str:
+    """Lê a chave de assinatura do ambiente; falha se ausente ou fraca."""
+    key = os.environ.get("SECRET_KEY", "")
+    if len(key) < MIN_SECRET_LENGTH:
+        raise RuntimeError(
+            f"SECRET_KEY em falta ou demasiado curta (mínimo {MIN_SECRET_LENGTH} caracteres)."
+        )
+    return key
 
 
 def hash_password(password: str) -> str:
-    """Gera hash seguro com PBKDF2-HMAC-SHA256 e salt de 16 bytes."""
-    salt = secrets.token_bytes(16)
-    key = hashlib.pbkdf2_hmac("sha256", password.encode(), salt, 100_000)
-    return f"{salt.hex()}:{key.hex()}"
+    return _hasher.hash(password)
 
 
-def verify_password(stored_password: str, provided_password: str) -> bool:
-    """Valida a password com comparação em tempo constante (mitiga timing attacks)."""
+def verify_password(stored_hash: str, provided_password: str) -> bool:
     try:
-        salt_hex, key_hex = stored_password.split(":")
-        salt = bytes.fromhex(salt_hex)
-        expected_key = bytes.fromhex(key_hex)
-        test_key = hashlib.pbkdf2_hmac("sha256", provided_password.encode(), salt, 100_000)
-        return hmac.compare_digest(expected_key, test_key)
-    except Exception:
+        return _hasher.verify(stored_hash, provided_password)
+    except (VerificationError, InvalidHashError):
         return False
 
 
-def create_access_token(username: str) -> str:
-    """Cria um token HMAC assinado com expiração."""
-    payload = {
-        "sub": username,
-        "exp": int(time.time()) + TOKEN_EXPIRY_SECONDS,
-    }
-    payload_b64 = base64.urlsafe_b64encode(json.dumps(payload).encode()).decode().rstrip("=")
-    signature = hmac.new(SECRET_KEY.encode(), payload_b64.encode(), hashlib.sha256).hexdigest()
-    return f"{payload_b64}.{signature}"
+def create_access_token(username: str, expires_in: int = TOKEN_EXPIRY_SECONDS) -> str:
+    now = int(time.time())
+    payload = {"sub": username, "iat": now, "jti": uuid.uuid4().hex, "exp": now + expires_in}
+    return jwt.encode(payload, get_secret_key(), algorithm=JWT_ALGORITHM)
 
 
 def verify_access_token(token: str) -> Optional[str]:
-    """Verifica a assinatura do token e valida o prazo de expiração."""
+    """Devolve o username se o token for válido; None caso contrário."""
     try:
-        payload_b64, signature = token.split(".")
-        expected_signature = hmac.new(SECRET_KEY.encode(), payload_b64.encode(), hashlib.sha256).hexdigest()
-        if not hmac.compare_digest(expected_signature, signature):
-            return None
-
-        # Recompor padding de Base64 se necessário
-        padded = payload_b64 + "=" * (-len(payload_b64) % 4)
-        payload = json.loads(base64.urlsafe_b64decode(padded.encode()).decode())
-
-        if time.time() > payload["exp"]:
-            return None
-
-        return payload["sub"]
-    except Exception:
+        payload = jwt.decode(
+            token,
+            get_secret_key(),
+            algorithms=[JWT_ALGORITHM],  # lista explícita: bloqueia alg=none
+            options={"require": ["exp", "sub"]},
+        )
+    except jwt.PyJWTError:
         return None
+    return payload["sub"]

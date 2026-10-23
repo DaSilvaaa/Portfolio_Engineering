@@ -1,6 +1,5 @@
 import argparse
 import asyncio
-import socket
 from typing import Optional
 
 

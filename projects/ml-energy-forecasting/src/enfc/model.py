@@ -21,8 +21,11 @@ def make_model(seed: int) -> HistGradientBoostingRegressor:
     )
 
 
-def evaluate(days: int = 730, seed: int = 42, test_frac: float = 0.2, cv: int = 3) -> dict:
-    feat = build_features(generate_pv_load(days, seed))
+def evaluate(days: int = 730, seed: int = 42, test_frac: float = 0.2, cv: int = 3, df=None) -> dict:
+    """Avalia o modelo; usa `df` (dados reais) se fornecido, senão gera dados sintéticos."""
+    data = generate_pv_load(days, seed) if df is None else df
+    days = len(data) // 24
+    feat = build_features(data)
     cut = int(len(feat) * (1 - test_frac))
     tr, te = feat.iloc[:cut], feat.iloc[cut:]
 
