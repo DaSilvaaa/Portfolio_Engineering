@@ -10,7 +10,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -20,7 +20,7 @@ jobs:
   python-security-tools:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -40,7 +40,7 @@ jobs:
   python-machine-learning:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -56,7 +56,7 @@ jobs:
   rust-file-integrity-monitor:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - name: Run Rust Integrity Monitor Tests
         run: cargo test --manifest-path projects/rust-integrity-monitor/Cargo.toml
@@ -64,7 +64,7 @@ jobs:
   rust-secrets-scanner:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - name: Run Rust Secrets Scanner Tests
         run: cargo test --manifest-path projects/rust-secrets-scanner/Cargo.toml
@@ -72,7 +72,7 @@ jobs:
   csharp-auth-log-analyzer:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
@@ -82,7 +82,7 @@ jobs:
   csharp-tls-inspector:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
@@ -92,7 +92,7 @@ jobs:
   cpp-packet-parser:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build C++ Packet Parser
         run: |
           cd projects/cpp-packet-parser
@@ -105,7 +105,7 @@ jobs:
       matrix:
         sanitize: ["", "address", "thread"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build and Test C++ Thread Pool (sanitizer=${{ matrix.sanitize || 'none' }})
         run: |
           cd projects/cpp-thread-pool
@@ -116,7 +116,7 @@ jobs:
   java-aes-vault:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
@@ -127,7 +127,7 @@ jobs:
   java-rate-limiter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
@@ -138,6 +138,6 @@ jobs:
   docker-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build Secure Web API Docker Image
         run: docker build -t secure-web-api projects/secure-web-api
