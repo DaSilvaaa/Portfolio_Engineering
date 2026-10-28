@@ -1,6 +1,6 @@
 fastapi>=0.110
 pydantic>=2.5
-uvicorn>=0.29
+uvicorn>=0.54.0
 pyjwt>=2.8
 argon2-cffi>=23.1
 pyotp>=2.9
