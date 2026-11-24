@@ -1,74 +1,74 @@
 # Software Engineering & Defensive Security Portfolio
 
-Dezoito projetos autónomos e testados em **Python, Rust, C++, Java e C#**, demonstrando arquitetura de software, programação concorrente, segurança defensiva e Machine Learning. Cada projeto contém a sua própria suite de testes, documentação técnica independente e integração contínua no GitHub Actions.
+Eighteen standalone, tested projects in **Python, Rust, C++, Java and C#**, demonstrating software architecture, concurrent programming, defensive security and Machine Learning. Each project has its own test suite, independent technical documentation and continuous integration on GitHub Actions.
 
-**Autor:** Diogo Silva · Engenharia Computacional & Mestrado em Sistemas Energéticos Sustentáveis, Universidade de Aveiro  
-📄 **Curriculum Vitae:** [Descarregar CV (PDF)](../../releases/latest/download/cv.pdf) *(gerado automaticamente a partir do código-fonte em [`cv/cv.tex`](cv/cv.tex))*
+**Author:** Diogo Silva · Computer Engineering & MSc in Sustainable Energy Systems, University of Aveiro  
+📄 **Curriculum Vitae:** [Download CV (PDF)](../../releases/latest/download/cv.pdf) *(generated automatically from the source code in [`cv/cv.tex`](cv/cv.tex))*
 ---
 
-## Projetos em destaque
+## Featured projects
 
-Três projetos publicados em repositórios próprios, com testes e CI:
+Three projects published in their own repositories, with tests and CI:
 
-| Projeto | O que mostra |
+| Project | What it shows |
 |---|---|
-| [secure-auth-api](https://github.com/DaSilvaaa/secure-auth-api) | Backend de autenticação (Argon2id, JWT, 2FA, reset de password, Docker) |
-| [solar-forecast-dashboard](https://github.com/DaSilvaaa/solar-forecast-dashboard) | ML para previsão fotovoltaica com dados reais e dashboard |
-| [site-security-auditor](https://github.com/DaSilvaaa/site-security-auditor) | Auditoria de segurança web com relatório PDF |
+| [secure-auth-api](https://github.com/DaSilvaaa/secure-auth-api) | Authentication backend (Argon2id, JWT, 2FA, password reset, Docker) |
+| [solar-forecast-dashboard](https://github.com/DaSilvaaa/solar-forecast-dashboard) | ML for photovoltaic forecasting with real data and a dashboard |
+| [site-security-auditor](https://github.com/DaSilvaaa/site-security-auditor) | Web security audit with a PDF report |
 
-O resto deste repositório é o meu laboratório de engenharia: experiências em várias linguagens, cada uma com testes.
+The rest of this repository is my engineering lab: experiments in several languages, each with tests.
 
 ---
 
-## Laboratório: estrutura dos projetos
+## Lab: project structure
 
-### 1. Segurança Defensiva e Ferramentas de Auditoria
-| Projeto | Tecnologia | Foco Principal |
+### 1. Defensive Security and Audit Tools
+| Project | Technology | Main Focus |
 |---|---|---|
-| [secure-web-api](projects/secure-web-api) | Python / FastAPI | Autenticação com Argon2id, JWT HS256 validado (anti `alg:none`), mitigação de enumeração, rate limiting e modelo STRIDE |
-| [site-auditor](projects/site-auditor) | Python / ReportLab | Auditoria de headers, cookies e TLS de um site com relatório PDF para o cliente |
-| [sast-mini](projects/sast-mini) | Python (AST) | Analisador estático com 8 regras de segurança (injeção, deserialização insegura, segredos) |
-| [port-scanner](projects/port-scanner) | Python (Asyncio) | Varrimento concorrente não-bloqueante de portas TCP e deteção de banners |
-| [log-analyzer-siem](projects/log-analyzer-siem) | Python | Deteção de SQL injection, path traversal e força bruta em logs web, com alertas por severidade |
-| [password-auditor](projects/password-auditor) | Python | Avaliação de entropia de palavras-passe baseada em classes de carateres |
-| [rust-secrets-scanner](projects/rust-secrets-scanner) | Rust | Deteção de credenciais via expressões regulares e cálculo de entropia de Shannon |
-| [rust-integrity-monitor](projects/rust-integrity-monitor) | Rust | Monitorização de integridade de ficheiros (FIM) com baselines SHA-256 e deteção de adulterações |
-| [csharp-tls-inspector](projects/csharp-tls-inspector) | C# (.NET 8) | Auditoria remota de certificados X.509, cifras e versões de protocolo TLS |
-| [csharp-auth-log-analyzer](projects/csharp-auth-log-analyzer) | C# (.NET 8) | Deteção de ataques de força bruta SSH via janelas temporais deslizantes |
+| [secure-web-api](projects/secure-web-api) | Python / FastAPI | Authentication with Argon2id, validated JWT HS256 (anti `alg:none`), enumeration mitigation, rate limiting and STRIDE model |
+| [site-auditor](projects/site-auditor) | Python / ReportLab | Header, cookie and TLS audit of a website with a client-ready PDF report |
+| [sast-mini](projects/sast-mini) | Python (AST) | Static analyzer with 8 security rules (injection, insecure deserialization, secrets) |
+| [port-scanner](projects/port-scanner) | Python (Asyncio) | Concurrent, non-blocking TCP port scanning and banner detection |
+| [log-analyzer-siem](projects/log-analyzer-siem) | Python | Detection of SQL injection, path traversal and brute force in web logs, with severity-based alerts |
+| [password-auditor](projects/password-auditor) | Python | Password entropy assessment based on character classes |
+| [rust-secrets-scanner](projects/rust-secrets-scanner) | Rust | Credential detection via regular expressions and Shannon entropy calculation |
+| [rust-integrity-monitor](projects/rust-integrity-monitor) | Rust | File integrity monitoring (FIM) with SHA-256 baselines and tamper detection |
+| [csharp-tls-inspector](projects/csharp-tls-inspector) | C# (.NET 8) | Remote audit of X.509 certificates, ciphers and TLS protocol versions |
+| [csharp-auth-log-analyzer](projects/csharp-auth-log-analyzer) | C# (.NET 8) | SSH brute-force attack detection using sliding time windows |
 
-### 2. Programação de Sistemas e Concorrência
-| Projeto | Tecnologia | Foco Principal |
+### 2. Systems Programming and Concurrency
+| Project | Technology | Main Focus |
 |---|---|---|
-| [cpp-thread-pool](projects/cpp-thread-pool) | C++17 | Thread pool genérico com `std::future` e cache LRU thread-safe (CI com ThreadSanitizer/ASan) |
-| [cpp-packet-parser](projects/cpp-packet-parser) | C++17 | Análise de tráfego de ficheiros PCAP com verificação estrita de limites de memória e deteção de SYN scans |
-| [java-aes-vault](projects/java-aes-vault) | Java 17 | Cifragem segura de ficheiros com AES-256-GCM, derivação PBKDF2 e cabeçalhos autenticados |
-| [java-rate-limiter](projects/java-rate-limiter) | Java 17 | Limitador de débito (Token Bucket) concorrente com relógio injetável e isolamento por chave |
+| [cpp-thread-pool](projects/cpp-thread-pool) | C++17 | Generic thread pool with `std::future` and a thread-safe LRU cache (CI with ThreadSanitizer/ASan) |
+| [cpp-packet-parser](projects/cpp-packet-parser) | C++17 | PCAP file traffic analysis with strict memory bounds checking and SYN scan detection |
+| [java-aes-vault](projects/java-aes-vault) | Java 17 | Secure file encryption with AES-256-GCM, PBKDF2 key derivation and authenticated headers |
+| [java-rate-limiter](projects/java-rate-limiter) | Java 17 | Concurrent Token Bucket rate limiter with an injectable clock and per-key isolation |
 
 ### 3. Machine Learning & MLOps
-| Projeto | Tecnologia | Foco Principal |
+| Project | Technology | Main Focus |
 |---|---|---|
-| [ml-intrusion-detection](projects/ml-intrusion-detection) | Python / Scikit-Learn | Deteção de intrusões em rede via Random Forest (supervisionado) e Isolation Forest (não-supervisionado) |
-| [ml-tabular-pipeline](projects/ml-tabular-pipeline) | Python / Scikit-Learn / FastAPI | Pipeline estanque sem fuga de dados (*leak-free*), seleção por CV, Model Card e API com Pydantic |
-| [ml-from-scratch](projects/ml-from-scratch) | Python / NumPy | Algoritmos implementados de raiz em álgebra linear (Linear, Logistic, K-Means, PCA) validados contra scikit-learn |
-| [`ml-energy-forecasting`](projects/ml-energy-forecasting) | Python / Scikit-Learn | Previsão horária fotovoltaica day-ahead: atributos sem look-ahead, divisão temporal cronológica, baselines ingénuas e pontuação de perícia (skill score). |
+| [ml-intrusion-detection](projects/ml-intrusion-detection) | Python / Scikit-Learn | Network intrusion detection with Random Forest (supervised) and Isolation Forest (unsupervised) |
+| [ml-tabular-pipeline](projects/ml-tabular-pipeline) | Python / Scikit-Learn / FastAPI | Leak-free pipeline, CV-based selection, Model Card and Pydantic API |
+| [ml-from-scratch](projects/ml-from-scratch) | Python / NumPy | Linear algebra algorithms implemented from scratch (Linear, Logistic, K-Means, PCA) validated against scikit-learn |
+| [`ml-energy-forecasting`](projects/ml-energy-forecasting) | Python / Scikit-Learn | Hourly day-ahead photovoltaic forecasting: look-ahead-free features, chronological time split, naive baselines and skill score. |
 
 ---
 
-## Boas Práticas de Engenharia Adotadas
-- **Testes Unitários:** Dezenas de testes automatizados distribuídos por Pytest, Cargo Test, CTest, Maven Surefire e xUnit.
-- **Sanitizers de Memória e Corridas de Dados:** Thread pool em C++ validado no CI com ThreadSanitizer (TSan) e AddressSanitizer (ASan).
-- **Segurança por Defeito:** Validação estrita de esquemas, cifras modernas autenticadas e códigos de saída compatíveis com CI.
-- **Documentação de Engenharia:**
-  - [Visão Geral de Arquitetura](docs/architecture/overview.md)
-  - [Registo de Decisão de Arquitetura (ADR 0001 — Monorepo)](docs/adr/0001-monorepo.md)
-  - [Modelação de Ameaças STRIDE da Web API](docs/threat-models/secure-web-api.md)
-  - [Ensaio Técnico: Armadilhas em JWT](docs/writeups/jwt-pitfalls.md)
-  - [Ensaio Técnico: Armadilhas de Avaliação em Machine Learning](docs/writeups/ml-evaluation-pitfalls.md)
+## Engineering Practices Adopted
+- **Unit Tests:** Dozens of automated tests across Pytest, Cargo Test, CTest, Maven Surefire and xUnit.
+- **Memory and Data-Race Sanitizers:** C++ thread pool validated in CI with ThreadSanitizer (TSan) and AddressSanitizer (ASan).
+- **Secure by Default:** Strict schema validation, modern authenticated ciphers and CI-compatible exit codes.
+- **Engineering Documentation:**
+  - [Architecture Overview](docs/architecture/overview.md)
+  - [Architecture Decision Record (ADR 0001 — Monorepo)](docs/adr/0001-monorepo.md)
+  - [STRIDE Threat Modelling of the Web API](docs/threat-models/secure-web-api.md)
+  - [Technical Write-up: JWT Pitfalls](docs/writeups/jwt-pitfalls.md)
+  - [Technical Write-up: Machine Learning Evaluation Pitfalls](docs/writeups/ml-evaluation-pitfalls.md)
 
 ---
 
-## Execução Local dos Testes
+## Running the Tests Locally
 ```bash
-# Executa a suite completa em ferramentas com compilador instalado localmente
+# Runs the full suite for the toolchains with a compiler installed locally
 bash scripts/verify.sh
 ```
